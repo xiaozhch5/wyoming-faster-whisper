@@ -3,13 +3,15 @@ import argparse
 import asyncio
 import logging
 
+import numpy as np
+
 from wyoming.asr import Transcribe, Transcript
 from wyoming.audio import AudioChunk, AudioChunkConverter, AudioStop
 from wyoming.event import Event
 from wyoming.info import Describe, Info
 from wyoming.server import AsyncEventHandler
 
-from .faster_whisper import WhisperModel
+from faster_whisper import WhisperModel
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -39,6 +41,7 @@ class FasterWhisperEventHandler(AsyncEventHandler):
             channels=1,
         )
         self._language = self.cli_args.language
+        self._initial_prompt = self.cli_args.initial_prompt
 
     async def handle_event(self, event: Event) -> bool:
         if Describe.is_type(event.type):
@@ -67,9 +70,10 @@ class FasterWhisperEventHandler(AsyncEventHandler):
             _LOGGER.debug("Audio stopped")
             async with self.model_lock:
                 segments, _info = self.model.transcribe(
-                    self.audio,
+                    np.frombuffer(self.audio, dtype=np.int16).astype(np.float32) / 32678.0,
                     beam_size=self.cli_args.beam_size,
                     language=self._language,
+                    initial_prompt=self._initial_prompt
                 )
 
             text = " ".join(segment.text for segment in segments)

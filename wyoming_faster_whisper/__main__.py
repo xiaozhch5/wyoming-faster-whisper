@@ -11,7 +11,7 @@ from wyoming.server import AsyncServer
 
 from .const import WHISPER_LANGUAGES
 from .download import FasterWhisperModel, download_model, find_model
-from .faster_whisper import WhisperModel
+from faster_whisper import WhisperModel
 from .handler import FasterWhisperEventHandler
 
 _LOGGER = logging.getLogger(__name__)
@@ -55,6 +55,11 @@ async def main() -> None:
         "--beam-size",
         type=int,
         default=5,
+    )
+    parser.add_argument(
+        "--initial-prompt",
+        type=str,
+        default="以下是普通话的句子。"
     )
     parser.add_argument("--debug", action="store_true", help="Log DEBUG messages")
     args = parser.parse_args()
