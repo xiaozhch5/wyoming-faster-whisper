@@ -1,4 +1,4 @@
-# Wyoming Faster Whisper for Large v3 model with official faster whisper
+# Wyoming Faster Whisper for Large v3 model with official faster whisper on CUDA
 
 [Wyoming protocol](https://github.com/rhasspy/wyoming) server for the [faster-whisper](https://github.com/guillaumekln/faster-whisper/) speech to text system.
 
@@ -25,7 +25,7 @@ git clone https://huggingface.co/Systran/faster-whisper-large-v3
 
 Run a server anyone can connect to:
 ```sh
-/usr/bin/python3 -m wyoming_faster_whisper --uri 'tcp://0.0.0.0:10300' --data-dir /ai/models/whisper --model large-v3 --beam-size 1 --language ru --download-dir /ai/models/whisper --compute-type int8_float32 --device cuda --initial-prompt "promt"
+/usr/bin/python3 -m wyoming_faster_whisper --uri 'tcp://0.0.0.0:10300' --data-dir /ai/models/whisper --model large-v3 --beam-size 1 --language ru --download-dir /ai/models/whisper --compute-type float16 --device cuda --initial-prompt "promt"
 
 ```
 
