@@ -1,4 +1,4 @@
-# Wyoming Faster Whisper
+# Wyoming Faster Whisper for Large v3 model with official faster whisper
 
 [Wyoming protocol](https://github.com/rhasspy/wyoming) server for the [faster-whisper](https://github.com/guillaumekln/faster-whisper/) speech to text system.
 
@@ -20,12 +20,13 @@ script/setup
 
 Download model to data dir
 ```sh
-curl -L -s https://github.com/rhasspy/models/releases/download/v1.0/asr_faster-whisper-tiny-int8.tar.gz | tar -zxvf - -C /data
+git clone https://huggingface.co/Systran/faster-whisper-large-v3
 ```
 
 Run a server anyone can connect to:
 ```sh
-script/run --model tiny-int8 --language en --uri 'tcp://0.0.0.0:10300' --data-dir /data --download-dir /data
+/usr/bin/python3 -m wyoming_faster_whisper --uri 'tcp://0.0.0.0:10300' --data-dir /ai/models/whisper --model large-v3 --beam-size 1 --language ru --download-dir /ai/models/whisper --compute-type int8_float32 --device cuda --initial-prompt "promt"
+
 ```
 
 ## Docker Image
