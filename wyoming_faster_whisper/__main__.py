@@ -5,7 +5,7 @@ import logging
 from functools import partial
 from pathlib import Path
 from typing import Optional
-
+from . import __version__
 from wyoming.info import AsrModel, AsrProgram, Attribution, Info
 from wyoming.server import AsyncServer
 
@@ -59,9 +59,15 @@ async def main() -> None:
     parser.add_argument(
         "--initial-prompt",
         type=str,
-        default="以下是普通话的句子。"
+        default=""
     )
     parser.add_argument("--debug", action="store_true", help="Log DEBUG messages")
+    parser.add_argument(
+        "--version",
+        action="version",
+        version=__version__,
+        help="Print version and exit",
+    )    
     args = parser.parse_args()
 
     if not args.download_dir:
@@ -97,6 +103,7 @@ async def main() -> None:
                     url="https://github.com/guillaumekln/faster-whisper/",
                 ),
                 installed=True,
+                version=__version__,
                 models=[
                     AsrModel(
                         name=model.value,
@@ -107,6 +114,7 @@ async def main() -> None:
                         ),
                         installed=True,
                         languages=WHISPER_LANGUAGES,
+                        version="1.0",
                     )
                 ],
             )
