@@ -13,7 +13,7 @@
 Clone the repository and set up Python virtual environment:
 
 ``` sh
-git clone https://github.com/rhasspy/wyoming-faster-whisper.git
+git clone https://github.com/neowisard/wyoming-faster-whisper.git
 cd wyoming-faster-whisper
 pip install -r requirements.txt
 ```
