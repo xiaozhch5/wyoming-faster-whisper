@@ -18,14 +18,16 @@ cd wyoming-faster-whisper
 pip install -r requirements.txt
 ```
 
-Download large model to data dir
+Download large model to data (/ai/models/whisper) dir
+
 ```sh
 git clone https://huggingface.co/Systran/faster-whisper-large-v3
+mv fwhisper-large-v3 large-v3
 ```
 or quantized to INT8 (smaller and faster Largev3)
 ```sh
 git clone https://huggingface.co/neowisard/fwhisper-large-v3-int8
-rm folder fwhisper-large-v3-int8 to large-v3i
+mv fwhisper-large-v3-int8 large-v3i
 ```
 
 Run a server anyone can connect to:
