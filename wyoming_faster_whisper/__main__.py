@@ -5,10 +5,11 @@ import logging
 from functools import partial
 from pathlib import Path
 from typing import Optional
-from . import __version__
+
 from wyoming.info import AsrModel, AsrProgram, Attribution, Info
 from wyoming.server import AsyncServer
 
+from . import __version__
 from .const import WHISPER_LANGUAGES
 from .download import FasterWhisperModel, download_model, find_model
 from faster_whisper import WhisperModel
@@ -39,7 +40,7 @@ async def main() -> None:
     )
     parser.add_argument(
         "--device",
-        default="cpu",
+        default="cuda",
         help="Device to use for inference (default: cpu)",
     )
     parser.add_argument(
@@ -48,7 +49,7 @@ async def main() -> None:
     )
     parser.add_argument(
         "--compute-type",
-        default="default",
+        default="int8_float32",
         help="Compute type (float16, int8, etc.)",
     )
     parser.add_argument(
@@ -59,15 +60,9 @@ async def main() -> None:
     parser.add_argument(
         "--initial-prompt",
         type=str,
-        default=""
+        default="дальше будет текст на русском языке"
     )
     parser.add_argument("--debug", action="store_true", help="Log DEBUG messages")
-    parser.add_argument(
-        "--version",
-        action="version",
-        version=__version__,
-        help="Print version and exit",
-    )    
     args = parser.parse_args()
 
     if not args.download_dir:
