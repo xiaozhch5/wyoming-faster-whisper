@@ -2,6 +2,9 @@
 
 [Wyoming protocol](https://github.com/rhasspy/wyoming) server for the [faster-whisper](https://github.com/guillaumekln/faster-whisper/) speech to text system.
 
+##  Pre-requisites :
+NVIDIA GPU, driver , cuda  installed
+
 ## Home Assistant Add-on
 
 [![Show add-on](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=core_whisper)
