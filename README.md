@@ -12,6 +12,12 @@
 
 Clone the repository and set up Python virtual environment:
 
+Virtual Python env (Only for Conda using)
+``` sh
+conda create -n fwf python=3.10
+conda activate fwf
+```
+
 ``` sh
 git clone https://github.com/neowisard/wyoming-faster-whisper.git
 cd wyoming-faster-whisper
@@ -33,7 +39,7 @@ mv fwhisper-large-v3-int8 large-v3i
 Run a server anyone can connect to:
 Full precision
 ```sh
-/usr/bin/python3 -m wyoming_faster_whisper --uri 'tcp://0.0.0.0:10300' --data-dir /ai/models/whisper --model large-v3 --beam-size 1 --language ru --download-dir /ai/models/whisper --compute-type float16 --device cuda --initial-prompt "promt"
+python3 -m wyoming_faster_whisper --uri 'tcp://0.0.0.0:10300' --data-dir /ai/models/whisper --model large-v3 --beam-size 1 --language ru --download-dir /ai/models/whisper --compute-type float16 --device cuda --initial-prompt "promt"
 ```
 Quantized INT8
 
