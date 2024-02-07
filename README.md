@@ -15,19 +15,30 @@ Clone the repository and set up Python virtual environment:
 ``` sh
 git clone https://github.com/rhasspy/wyoming-faster-whisper.git
 cd wyoming-faster-whisper
-script/setup
+pip install -r requirements.txt
 ```
 
-Download model to data dir
+Download large model to data dir
 ```sh
 git clone https://huggingface.co/Systran/faster-whisper-large-v3
 ```
+or quantized to INT8 (smaller and faster Largev3)
+```sh
+git clone https://huggingface.co/neowisard/fwhisper-large-v3-int8
+rm folder fwhisper-large-v3-int8 to large-v3i
+```
 
 Run a server anyone can connect to:
+Full precision
 ```sh
 /usr/bin/python3 -m wyoming_faster_whisper --uri 'tcp://0.0.0.0:10300' --data-dir /ai/models/whisper --model large-v3 --beam-size 1 --language ru --download-dir /ai/models/whisper --compute-type float16 --device cuda --initial-prompt "promt"
-
 ```
+Quantized INT8
+
+```sh
+python3 -m wyoming_faster_whisper --uri 'tcp://0.0.0.0:10300' --data-dir /ai/models/whisper --model large-v3i --beam-size 1 --language ru --download-dir /ai/models/whisper --compute-type int8_float32 --device cuda
+```
+
 
 ## Docker Image
 
