@@ -1,6 +1,9 @@
-# Wyoming Faster Whisper
+# Wyoming Faster Whisper for Large v3 model with official faster whisper on CUDA
 
 [Wyoming protocol](https://github.com/rhasspy/wyoming) server for the [faster-whisper](https://github.com/guillaumekln/faster-whisper/) speech to text system.
+
+##  Pre-requisites :
+NVIDIA GPU, driver , cuda  installed
 
 ## Home Assistant Add-on
 
@@ -10,29 +13,43 @@
 
 ## Local Install
 
-Clone the repository and set up Python virtual environment:
+Set up Python virtual environment:
+
+Virtual Python env (Only for Conda using)
+``` sh
+conda create -n fwf python=3.10
+conda activate fwf
+```
+Clone the repository 
 
 ``` sh
-git clone https://github.com/rhasspy/wyoming-faster-whisper.git
+git clone https://github.com/neowisard/wyoming-faster-whisper.git
 cd wyoming-faster-whisper
-script/setup
+pip install -r requirements.txt
 ```
 
-Download model to data dir
+Download large model to data (/ai/models/whisper) dir
+
 ```sh
-curl -L -s https://github.com/rhasspy/models/releases/download/v1.0/asr_faster-whisper-tiny-int8.tar.gz | tar -zxvf - -C /data
+git clone https://huggingface.co/Systran/faster-whisper-large-v3
+mv fwhisper-large-v3 large-v3
+```
+or quantized to INT8 (smaller and faster Largev3)
+```sh
+git clone https://huggingface.co/neowisard/fwhisper-large-v3-int8
+mv fwhisper-large-v3-int8 large-v3i
 ```
 
 Run a server anyone can connect to:
+Full precision
 ```sh
-script/run --model tiny-int8 --language en --uri 'tcp://0.0.0.0:10300' --data-dir /data --download-dir /data
+python3 -m wyoming_faster_whisper --uri 'tcp://0.0.0.0:10300' --data-dir /ai/models/whisper --model large-v3 --beam-size 1 --language ru --download-dir /ai/models/whisper --compute-type float16 --device cuda --initial-prompt "promt"
+```
+Quantized INT8
+
+```sh
+python3 -m wyoming_faster_whisper --uri 'tcp://0.0.0.0:10300' --data-dir /ai/models/whisper --model large-v3i --beam-size 1 --language ru --download-dir /ai/models/whisper --compute-type int8_float32 --device cuda
 ```
 
-## Docker Image
-
-``` sh
-docker run -it -p 10300:10300 -v /path/to/local/data:/data rhasspy/wyoming-whisper \
-    --model tiny-int8 --language en
-```
 
 [Source](https://github.com/rhasspy/wyoming-addons/tree/master/whisper)

@@ -9,6 +9,7 @@ from typing import Optional
 from wyoming.info import AsrModel, AsrProgram, Attribution, Info
 from wyoming.server import AsyncServer
 
+from . import __version__
 from .const import WHISPER_LANGUAGES
 from .download import FasterWhisperModel, download_model, find_model
 from faster_whisper import WhisperModel
@@ -39,7 +40,7 @@ async def main() -> None:
     )
     parser.add_argument(
         "--device",
-        default="cpu",
+        default="cuda",
         help="Device to use for inference (default: cpu)",
     )
     parser.add_argument(
@@ -48,7 +49,7 @@ async def main() -> None:
     )
     parser.add_argument(
         "--compute-type",
-        default="default",
+        default="int8_float32",
         help="Compute type (float16, int8, etc.)",
     )
     parser.add_argument(
@@ -59,7 +60,7 @@ async def main() -> None:
     parser.add_argument(
         "--initial-prompt",
         type=str,
-        default="以下是普通话的句子。"
+        default="дальше будет текст на русском языке"
     )
     parser.add_argument("--debug", action="store_true", help="Log DEBUG messages")
     args = parser.parse_args()
@@ -97,6 +98,7 @@ async def main() -> None:
                     url="https://github.com/guillaumekln/faster-whisper/",
                 ),
                 installed=True,
+                version=__version__,
                 models=[
                     AsrModel(
                         name=model.value,
@@ -107,6 +109,7 @@ async def main() -> None:
                         ),
                         installed=True,
                         languages=WHISPER_LANGUAGES,
+                        version="1.0",
                     )
                 ],
             )
