@@ -25,8 +25,8 @@ class FasterWhisperModel(str, Enum):
     SMALL_INT8 = "small-int8"
     MEDIUM = "medium"
     MEDIUM_INT8 = "medium-int8"
-    LARGE = "large-v3"  # Downloat it https://huggingface.co/Systran/faster-whisper-large-v3/tree/main
-    #LARGE_INT8 = "" Make it from f16 ct2-transformers-converter --model /ai/models/whisper/whisper-large-v3 --output_dir large-v3i --copy_files tokenizer.json preprocessor_config.json --quantization int8_float32
+    LARGE = "large-v3"
+    LARGE_INT8 = "large-v3i"
 
 
 EXPECTED_HASHES = {
