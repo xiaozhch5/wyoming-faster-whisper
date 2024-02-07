@@ -42,11 +42,4 @@ python3 -m wyoming_faster_whisper --uri 'tcp://0.0.0.0:10300' --data-dir /ai/mod
 ```
 
 
-## Docker Image
-
-``` sh
-docker run -it -p 10300:10300 -v /path/to/local/data:/data rhasspy/wyoming-whisper \
-    --model tiny-int8 --language en
-```
-
 [Source](https://github.com/rhasspy/wyoming-addons/tree/master/whisper)
