@@ -10,13 +10,14 @@
 
 ## Local Install
 
-Clone the repository and set up Python virtual environment:
+Set up Python virtual environment:
 
 Virtual Python env (Only for Conda using)
 ``` sh
 conda create -n fwf python=3.10
 conda activate fwf
 ```
+Clone the repository 
 
 ``` sh
 git clone https://github.com/neowisard/wyoming-faster-whisper.git
